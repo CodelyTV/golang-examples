@@ -1,19 +1,15 @@
 package cli
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
 )
 
 // CobraFn function definion of run cobra command
 type CobraFn func(cmd *cobra.Command, args []string)
-
-var beers = map[string]string{
-	"01D9X58E7NPXX5MVCR9QN794CH": "Mad Jack Mixer",
-	"01D9X5BQ5X48XMMVZ2F2G3R5MS": "Keystone Ice",
-	"01D9X5CVS1M9VR5ZD627XDF6ND": "Belgian Moon",
-}
 
 const idFlag = "id"
 
@@ -25,19 +21,25 @@ func InitBeersCmd() *cobra.Command {
 		Run:   runBeersFn(),
 	}
 
-	beersCmd.Flags().StringP(idFlag, "i", "", "id of the beer")
-
 	return beersCmd
 }
 
 func runBeersFn() CobraFn {
 	return func(cmd *cobra.Command, args []string) {
-		id, _ := cmd.Flags().GetString(idFlag)
 
-		if id != "" {
-			fmt.Println(beers[id])
-		} else {
-			fmt.Println(beers)
+		f, _ := os.Open("03-reading_files/data/beers.csv")
+		reader := bufio.NewReader(f)
+		for line := readLine(reader); line != nil; line = readLine(reader) {
+			fmt.Printf("line (as bytes): %v\n", line)
+			fmt.Printf("line (as string): %v\n", string(line))
 		}
+
+		fmt.Printf("\n\nEnd of file\n")
+
 	}
+}
+
+func readLine(reader *bufio.Reader) (line []byte) {
+	line, _, _ = reader.ReadLine()
+	return
 }
