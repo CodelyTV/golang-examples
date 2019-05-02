@@ -13,6 +13,10 @@ var beers = map[string]string{
 
 func main() {
 	beersFlag := flag.Bool("beers", false, "show beers")
+	flag.Usage = func() {
+		fmt.Println("This is a cli create for CodelyTV Go course")
+		flag.PrintDefaults()
+	}
 	flag.Parse()
 
 	if *beersFlag {
