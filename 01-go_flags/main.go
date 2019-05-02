@@ -1,8 +1,8 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"os"
 )
 
 var beers = map[string]string{
@@ -12,9 +12,10 @@ var beers = map[string]string{
 }
 
 func main() {
-	param := os.Args[1]
-	if param == "beers" {
+	beersFlag := flag.Bool("beers", false, "show beers")
+	flag.Parse()
+
+	if *beersFlag {
 		fmt.Println(beers)
 	}
-	fmt.Println(param)
 }
