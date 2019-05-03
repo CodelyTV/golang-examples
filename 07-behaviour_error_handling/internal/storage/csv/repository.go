@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	beerscli "github.com/CodelyTV/golang-introduction/06-error_handling/internal"
+	beerscli "github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal"
 )
 
 type repository struct {
@@ -19,7 +19,7 @@ func NewRepository() beerscli.BeerRepo {
 
 // GetBeers fetch beers data from csv
 func (r *repository) GetBeers() ([]beerscli.Beer, error) {
-	f, _ := os.Open("06-error_handling/data/beers.csv")
+	f, _ := os.Open("07-behaviour_error_handling/data/beers.csv")
 	reader := bufio.NewReader(f)
 
 	var beers []beerscli.Beer
