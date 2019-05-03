@@ -6,9 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/CodelyTV/golang-introduction/06-error_handling/internal/errors"
-
 	beerscli "github.com/CodelyTV/golang-introduction/06-error_handling/internal"
+	"github.com/pkg/errors"
 )
 
 const (
@@ -28,17 +27,17 @@ func NewOntarioRepository() beerscli.BeerRepo {
 func (b *beerRepo) GetBeers() (beers []beerscli.Beer, err error) {
 	response, err := http.Get(fmt.Sprintf("%v%v", b.url, productsEndpoint))
 	if err != nil {
-		return nil, &errors.BadResponseErr{"Something happened when call the endpoint", "ontario/repository.go", 31}
+		return nil, errors.Wrapf(err, "Something happened when call the endpoint: %s", productsEndpoint)
 	}
 
 	contents, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return nil, &errors.BadResponseErr{"Something happened when read the content", "ontario/repository.go", 36}
+		return nil, errors.Wrap(err, "Something happened when read the content")
 	}
 
 	err = json.Unmarshal(contents, &beers)
 	if err != nil {
-		return nil, &errors.BadResponseErr{"Something happened when unmarshal the content", "ontario/repository.go", 41}
+		return nil, errors.Wrap(err, "Something happened when unmarshal the content")
 	}
 	return
 }
