@@ -56,6 +56,11 @@ var toID = map[string]BeerType{
 	"unknown":        Unknown,
 }
 
+// BeerRepo definiton of methods to access a data beer
+type BeerRepo interface {
+	GetBeers() ([]Beer, error)
+}
+
 // NewBeer initialize struct beer
 func NewBeer(productID int, name, category, brewer, country string, beerType *BeerType, price float64) (b Beer) {
 	b = Beer{
