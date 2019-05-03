@@ -42,15 +42,15 @@ func runBeersFn() CobraFn {
 			productID, _ := strconv.Atoi(values[0])
 			price, _ := strconv.ParseFloat(values[3], 64)
 
-			beer := beerscli.Beer{
-				ProductID: productID,
-				Name:      values[1],
-				Category:  values[2],
-				Price:     price,
-				Type:      values[4],
-				Brewer:    values[5],
-				Country:   values[6],
-			}
+			beer := beerscli.NewBeer(
+				productID,
+				values[1],
+				values[2],
+				values[4],
+				values[5],
+				values[6],
+				price,
+			)
 
 			beers[productID] = beer
 		}
