@@ -1,6 +1,11 @@
 package main
 
 import (
+	"flag"
+
+	"github.com/CodelyTV/golang-introduction/05-parsing_http_response/internal/storage/ontario"
+
+	beerscli "github.com/CodelyTV/golang-introduction/05-parsing_http_response/internal"
 	"github.com/CodelyTV/golang-introduction/05-parsing_http_response/internal/cli"
 	"github.com/CodelyTV/golang-introduction/05-parsing_http_response/internal/storage/csv"
 	"github.com/spf13/cobra"
@@ -8,9 +13,16 @@ import (
 
 func main() {
 
-	csvRepo := csv.NewRepository()
+	csvData := flag.Bool("csv", false, "load data from csv")
+
+	var repo beerscli.BeerRepo
+	repo = csv.NewRepository()
+
+	if !*csvData {
+		repo = ontario.NewOntarioRepository()
+	}
 
 	rootCmd := &cobra.Command{Use: "beers-cli"}
-	rootCmd.AddCommand(cli.InitBeersCmd(csvRepo))
+	rootCmd.AddCommand(cli.InitBeersCmd(repo))
 	rootCmd.Execute()
 }
