@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/CodelyTV/golang-introduction/06-error_handling/internal/errors"
+
 	beerscli "github.com/CodelyTV/golang-introduction/06-error_handling/internal"
 )
 
@@ -26,17 +28,17 @@ func NewOntarioRepository() beerscli.BeerRepo {
 func (b *beerRepo) GetBeers() (beers []beerscli.Beer, err error) {
 	response, err := http.Get(fmt.Sprintf("%v%v", b.url, productsEndpoint))
 	if err != nil {
-		return nil, err
+		return nil, errors.BadResponse
 	}
 
 	contents, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return nil, err
+		return nil, errors.BadResponse
 	}
 
 	err = json.Unmarshal(contents, &beers)
 	if err != nil {
-		return nil, err
+		return nil, errors.BadResponse
 	}
 	return
 }

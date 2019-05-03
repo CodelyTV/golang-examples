@@ -2,9 +2,11 @@ package cli
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 
 	beerscli "github.com/CodelyTV/golang-introduction/06-error_handling/internal"
+	"github.com/CodelyTV/golang-introduction/06-error_handling/internal/errors"
 	"github.com/spf13/cobra"
 )
 
@@ -28,7 +30,10 @@ func InitBeersCmd(repository beerscli.BeerRepo) *cobra.Command {
 
 func runBeersFn(repository beerscli.BeerRepo) CobraFn {
 	return func(cmd *cobra.Command, args []string) {
-		beers, _ := repository.GetBeers()
+		beers, err := repository.GetBeers()
+		if err == errors.BadResponse {
+			log.Fatal(err)
+		}
 
 		id, _ := cmd.Flags().GetString(idFlag)
 
