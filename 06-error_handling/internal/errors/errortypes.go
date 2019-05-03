@@ -1,5 +1,13 @@
 package errors
 
-import "errors"
+import "fmt"
 
-var BadResponse = errors.New("Bad response")
+type BadResponseErr struct {
+	Msg  string
+	File string
+	Line int
+}
+
+func (e *BadResponseErr) Error() string {
+	return fmt.Sprintf("%s: %d: %s", e.File, e.Line, e.Msg)
+}
