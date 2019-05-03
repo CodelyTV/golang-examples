@@ -31,7 +31,7 @@ func InitBeersCmd() *cobra.Command {
 
 func runBeersFn() CobraFn {
 	return func(cmd *cobra.Command, args []string) {
-		f, _ := os.Open("03-reading_files/data/beers.csv")
+		f, _ := os.Open("04-modeling_data/data/beers.csv")
 		reader := bufio.NewReader(f)
 
 		var beers = make(map[int]beerscli.Beer)
@@ -46,9 +46,9 @@ func runBeersFn() CobraFn {
 				productID,
 				values[1],
 				values[2],
-				values[4],
 				values[5],
 				values[6],
+				beerscli.NewBeerType(values[4]),
 				price,
 			)
 
