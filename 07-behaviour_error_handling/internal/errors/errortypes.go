@@ -1,13 +1,28 @@
 package errors
 
-import "fmt"
+import (
+	"github.com/pkg/errors"
+)
 
-type BadResponseErr struct {
-	Msg  string
-	File string
-	Line int
+type dataUnreacheable struct {
+	error
 }
 
-func (e *BadResponseErr) Error() string {
-	return fmt.Sprintf("%s: %d: %s", e.File, e.Line, e.Msg)
+// WrapDataUnreacheable returns an error which wraps err that satisfies
+// IsDataUnreacheable()
+func WrapDataUnreacheable(err error, format string, args ...interface{}) error {
+	return &dataUnreacheable{errors.Wrapf(err, format, args...)}
+}
+
+// NewDataUnreacheable returns an error which satisfies IsDataUnreacheable()
+func NewDataUnreacheable(format string, args ...interface{}) error {
+	return &dataUnreacheable{errors.Errorf(format, args...)}
+}
+
+// IsDataUnreacheable reports whether err was created with DataUnreacheablef() or
+// NewDataUnreacheable()
+func IsDataUnreacheable(err error) bool {
+	err = errors.Cause(err)
+	_, ok := err.(*dataUnreacheable)
+	return ok
 }

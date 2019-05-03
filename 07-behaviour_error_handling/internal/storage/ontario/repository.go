@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	beerscli "github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal"
-	"github.com/pkg/errors"
+	"github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal/errors"
 )
 
 const (
@@ -27,17 +27,17 @@ func NewOntarioRepository() beerscli.BeerRepo {
 func (b *beerRepo) GetBeers() (beers []beerscli.Beer, err error) {
 	response, err := http.Get(fmt.Sprintf("%v%v", b.url, productsEndpoint))
 	if err != nil {
-		return nil, errors.Wrapf(err, "Something happened when call the endpoint: %s", productsEndpoint)
+		return nil, errors.WrapDataUnreacheable(err, "error getting response to %s", productsEndpoint)
 	}
 
 	contents, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		return nil, errors.Wrap(err, "Something happened when read the content")
+		return nil, errors.WrapDataUnreacheable(err, "error reading the response from %s", productsEndpoint)
 	}
 
 	err = json.Unmarshal(contents, &beers)
 	if err != nil {
-		return nil, errors.Wrap(err, "Something happened when unmarshal the content")
+		return nil, errors.WrapDataUnreacheable(err, "can't parsing response into beers")
 	}
 	return
 }

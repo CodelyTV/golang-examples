@@ -5,6 +5,8 @@ import (
 	"log"
 	"strconv"
 
+	"github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal/errors"
+
 	beerscli "github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal"
 	"github.com/spf13/cobra"
 )
@@ -30,7 +32,7 @@ func InitBeersCmd(repository beerscli.BeerRepo) *cobra.Command {
 func runBeersFn(repository beerscli.BeerRepo) CobraFn {
 	return func(cmd *cobra.Command, args []string) {
 		beers, err := repository.GetBeers()
-		if err != nil {
+		if errors.IsDataUnreacheable(err) {
 			log.Fatal(err)
 		}
 
