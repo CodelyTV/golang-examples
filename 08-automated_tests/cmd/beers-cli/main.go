@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 
+	"github.com/CodelyTV/golang-introduction/08-automated_tests/internal/fetching"
+
 	"github.com/CodelyTV/golang-introduction/08-automated_tests/internal/storage/ontario"
 
 	beerscli "github.com/CodelyTV/golang-introduction/08-automated_tests/internal"
@@ -22,7 +24,9 @@ func main() {
 		repo = ontario.NewOntarioRepository()
 	}
 
+	fetchingService := fetching.NewService(repo)
+
 	rootCmd := &cobra.Command{Use: "beers-cli"}
-	rootCmd.AddCommand(cli.InitBeersCmd(repo))
+	rootCmd.AddCommand(cli.InitBeersCmd(fetchingService))
 	rootCmd.Execute()
 }
