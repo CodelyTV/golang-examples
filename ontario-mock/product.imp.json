@@ -1,0 +1,15 @@
+[
+    {
+        "request": {
+            "method": "GET",
+            "endpoint": "/products"
+        },
+        "response": {
+            "status": 200,
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "bodyFile": "product_response.json"
+        }
+    }
+]

@@ -8,11 +8,12 @@ import (
 
 	beerscli "github.com/CodelyTV/golang-introduction/09-benchmarking/internal"
 	"github.com/CodelyTV/golang-introduction/09-benchmarking/internal/errors"
+	jsoniter "github.com/json-iterator/go"
 )
 
 const (
 	productsEndpoint = "/products"
-	ontarioURL       = "http://ontariobeerapi.ca"
+	ontarioURL       = "http://localhost:3000"
 )
 
 type beerRepo struct {
@@ -35,9 +36,28 @@ func (b *beerRepo) GetBeers() (beers []beerscli.Beer, err error) {
 		return nil, errors.WrapDataUnreacheable(err, "error reading the response from %s", productsEndpoint)
 	}
 
-	err = json.Unmarshal(contents, &beers)
+	err = b.betterUnmarshal(contents, &beers)
 	if err != nil {
 		return nil, errors.WrapDataUnreacheable(err, "can't parsing response into beers")
 	}
 	return
+}
+
+func (b *beerRepo) standardUnmarshal(data []byte, beers *[]beerscli.Beer) error {
+	err := json.Unmarshal(data, &beers)
+	if err != nil {
+		return errors.WrapDataUnreacheable(err, "can't parsing response into beers")
+	}
+	return nil
+}
+
+func (b *beerRepo) betterUnmarshal(data []byte, beers *[]beerscli.Beer) error {
+	var js = jsoniter.ConfigCompatibleWithStandardLibrary
+
+	err := js.Unmarshal(data, &beers)
+	if err != nil {
+		return errors.WrapDataUnreacheable(err, "can't parsing response into beers")
+	}
+
+	return nil
 }
