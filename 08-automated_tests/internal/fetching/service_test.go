@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/CodelyTV/golang-introduction/08-automated_tests/internal/storage/inmem"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestFetchByID(t *testing.T) {
@@ -22,17 +23,16 @@ func TestFetchByID(t *testing.T) {
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
 			b, err := service.FetchByID(tc.input)
-			if err != nil && tc.err == nil {
-				t.Fatalf("not expected any errors and got %v", err)
+
+			if tc.err != nil {
+				assert.Error(t, err)
 			}
 
-			if err == nil && tc.err != nil {
-				t.Error("expected an error and got nil")
+			if tc.err == nil {
+				assert.Nil(t, err)
 			}
 
-			if b.ProductID != tc.want {
-				t.Fatalf("expected %d,  got: %d ", tc.want, b.ProductID)
-			}
+			assert.Equal(t, tc.want, b.ProductID)
 		})
 	}
 }
