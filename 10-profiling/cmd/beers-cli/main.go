@@ -2,8 +2,6 @@ package main
 
 import (
 	"flag"
-	"os"
-	"runtime/pprof"
 
 	beerscli "github.com/CodelyTV/golang-introduction/10-profiling/internal"
 	"github.com/CodelyTV/golang-introduction/10-profiling/internal/cli"
@@ -14,6 +12,13 @@ import (
 )
 
 func main() {
+	// CPU profiling code starts here
+	//f, _ := os.Create("beers.cpu.prof")
+	//defer f.Close()
+	//pprof.StartCPUProfile(f)
+	//defer pprof.StopCPUProfile()
+	// CPU profiling code ends here
+
 	csvData := flag.Bool("csv", false, "load data from csv")
 	flag.Parse()
 	var repo beerscli.BeerRepo
@@ -29,7 +34,9 @@ func main() {
 	rootCmd.AddCommand(cli.InitBeersCmd(fetchingService))
 	rootCmd.Execute()
 
-	f, _ := os.Create("beers.mem.prof")
-	defer f.Close()
-	pprof.WriteHeapProfile(f)
+	// Memory profiling code starts here
+	//f2, _ := os.Create("beers.mem.prof")
+	//defer f2.Close()
+	//pprof.WriteHeapProfile(f2)
+	// Memory profiling code ends here
 }
