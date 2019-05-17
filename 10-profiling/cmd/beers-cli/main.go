@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"os"
+	"runtime/pprof"
 
 	beerscli "github.com/CodelyTV/golang-introduction/10-profiling/internal"
 	"github.com/CodelyTV/golang-introduction/10-profiling/internal/cli"
@@ -12,7 +14,6 @@ import (
 )
 
 func main() {
-
 	csvData := flag.Bool("csv", false, "load data from csv")
 	flag.Parse()
 	var repo beerscli.BeerRepo
@@ -27,4 +28,8 @@ func main() {
 	rootCmd := &cobra.Command{Use: "beers-cli"}
 	rootCmd.AddCommand(cli.InitBeersCmd(fetchingService))
 	rootCmd.Execute()
+
+	f, _ := os.Create("beers.mem.prof")
+	defer f.Close()
+	pprof.WriteHeapProfile(f)
 }
