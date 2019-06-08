@@ -15,8 +15,6 @@ var beers = map[string]string{
 	"01D9X5CVS1M9VR5ZD627XDF6ND": "Belgian Moon",
 }
 
-const idFlag = "id"
-
 // InitBeersCmd initialize beers command
 func InitBeersCmd() *cobra.Command {
 	beersCmd := &cobra.Command{
