@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	beerscli "github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal"
+	"github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal/errors"
 )
 
 type repository struct {
@@ -17,14 +18,25 @@ func NewRepository() beerscli.BeerRepo {
 	return &repository{}
 }
 
+const fileName string = "07-behaviour_error_handling/data/beers.csv"
+
 // GetBeers fetch beers data from csv
 func (r *repository) GetBeers() ([]beerscli.Beer, error) {
-	f, _ := os.Open("07-behaviour_error_handling/data/beers.csv")
+	f, err := os.Open(fileName)
+	if err != nil {
+		return nil, errors.WrapDataUnreacheable(err, "error opening file with name %s", fileName)
+	}
+
 	reader := bufio.NewReader(f)
 
 	var beers []beerscli.Beer
 
-	for line := readLine(reader); line != nil; line = readLine(reader) {
+	for line, err := readLine(reader); line != nil; line, err = readLine(reader) {
+
+		if err != nil {
+			return nil, errors.WrapDataUnreacheable(err, "there was problems while reading lines %s", fileName)
+		}
+
 		values := strings.Split(string(line), ",")
 
 		productID, _ := strconv.Atoi(values[0])
@@ -45,7 +57,7 @@ func (r *repository) GetBeers() ([]beerscli.Beer, error) {
 	return beers, nil
 }
 
-func readLine(reader *bufio.Reader) (line []byte) {
-	line, _, _ = reader.ReadLine()
+func readLine(reader *bufio.Reader) (line []byte, err error) {
+	line, _, err = reader.ReadLine()
 	return
 }
