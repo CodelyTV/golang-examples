@@ -45,6 +45,47 @@ func (r *repository) GetBeers() ([]beerscli.Beer, error) {
 	return beers, nil
 }
 
+func (r *repository) GetStores() ([]beerscli.Store, error) {
+	f, _ := os.Open("08-automated_tests/data/stores.csv")
+	reader := bufio.NewReader(f)
+
+	var stores []beerscli.Store
+
+	for line := readLine(reader); line != nil; line = readLine(reader) {
+		values := strings.Split(string(line), ",")
+
+		storeID, _ := strconv.Atoi(values[0])
+
+		store := beerscli.NewStore(
+			storeID,
+			values[1],
+			values[2],
+			values[3],
+			values[4],
+			values[5],
+			values[6],
+			values[7],
+			values[8],
+			values[9],
+			values[10],
+			values[11],
+			values[12],
+			values[13],
+			values[14],
+			values[15],
+			values[16],
+			values[17],
+			values[18],
+			values[19],
+			values[20],
+		)
+
+		stores = append(stores, store)
+	}
+
+	return stores, nil
+}
+
 func readLine(reader *bufio.Reader) (line []byte) {
 	line, _, _ = reader.ReadLine()
 	return
