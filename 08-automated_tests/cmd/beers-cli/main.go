@@ -28,5 +28,6 @@ func main() {
 
 	rootCmd := &cobra.Command{Use: "beers-cli"}
 	rootCmd.AddCommand(cli.InitBeersCmd(fetchingService))
+	rootCmd.AddCommand(cli.InitStoresCmd(fetchingService))
 	rootCmd.Execute()
 }
