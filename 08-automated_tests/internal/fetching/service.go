@@ -13,6 +13,7 @@ type Service interface {
 	FetchByID(id int) (beerscli.Beer, error)
 }
 
+// StoresService provides store fetching operations
 type StoresService interface {
 	// FetchStores fetch all stores from repository
 	FetchStores() ([]beerscli.Store, error)
