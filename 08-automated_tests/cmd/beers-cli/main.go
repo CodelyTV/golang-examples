@@ -18,16 +18,18 @@ func main() {
 	csvData := flag.Bool("csv", false, "load data from csv")
 	flag.Parse()
 	var repo beerscli.BeerRepo
+	var storeRepo beerscli.StoreRepo
 	repo = csv.NewRepository()
 
 	if !*csvData {
-		repo = ontario.NewOntarioRepository()
+		repo, storeRepo = ontario.NewOntarioRepository()
 	}
 
 	fetchingService := fetching.NewService(repo)
+	fetchingStoresService := fetching.NewStoreService(storeRepo)
 
 	rootCmd := &cobra.Command{Use: "beers-cli"}
 	rootCmd.AddCommand(cli.InitBeersCmd(fetchingService))
-	rootCmd.AddCommand(cli.InitStoresCmd(fetchingService))
+	rootCmd.AddCommand(cli.InitStoresCmd(fetchingStoresService))
 	rootCmd.Execute()
 }

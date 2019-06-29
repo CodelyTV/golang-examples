@@ -12,6 +12,7 @@ import (
 
 const (
 	productsEndpoint = "/products"
+	storesEndpoint   = "/stores"
 	ontarioURL       = "http://ontariobeerapi.ca"
 )
 
@@ -19,9 +20,13 @@ type beerRepo struct {
 	url string
 }
 
+type storeRepo struct {
+	url string
+}
+
 // NewOntarioRepository fetch beers data from csv
-func NewOntarioRepository() beerscli.BeerRepo {
-	return &beerRepo{url: ontarioURL}
+func NewOntarioRepository() (beerscli.BeerRepo, beerscli.StoreRepo) {
+	return &beerRepo{url: ontarioURL}, &storeRepo{url: ontarioURL}
 }
 
 func (b *beerRepo) GetBeers() (beers []beerscli.Beer, err error) {
@@ -38,6 +43,24 @@ func (b *beerRepo) GetBeers() (beers []beerscli.Beer, err error) {
 	err = json.Unmarshal(contents, &beers)
 	if err != nil {
 		return nil, errors.WrapDataUnreacheable(err, "can't parsing response into beers")
+	}
+	return
+}
+
+func (b *storeRepo) GetStores() (stores []beerscli.Store, err error) {
+	response, err := http.Get(fmt.Sprintf("%v%v", b.url, storesEndpoint))
+	if err != nil {
+		return nil, errors.WrapDataUnreacheable(err, "error getting response to %s", storesEndpoint)
+	}
+
+	contents, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return nil, errors.WrapDataUnreacheable(err, "error reading the response from %s", storesEndpoint)
+	}
+
+	err = json.Unmarshal(contents, &stores)
+	if err != nil {
+		return nil, errors.WrapDataUnreacheable(err, "can't parsing response into stores")
 	}
 	return
 }

@@ -15,8 +15,8 @@ type CobraFn func(cmd *cobra.Command, args []string)
 
 const idStoreFlag = "id"
 
-// InitBeersCmd initialize beers command
-func InitStoresCmd(service fetching.Service) *cobra.Command {
+// InitStoresCmd initialize beers command
+func InitStoresCmd(service fetching.StoresService) *cobra.Command {
 	beersCmd := &cobra.Command{
 		Use:   "stores",
 		Short: "Print data about stores",
@@ -28,13 +28,13 @@ func InitStoresCmd(service fetching.Service) *cobra.Command {
 	return beersCmd
 }
 
-func runStoresFn(service fetching.Service) CobraFn {
+func runStoresFn(service fetching.StoresService) CobraFn {
 	return func(cmd *cobra.Command, args []string) {
 
 		id, _ := cmd.Flags().GetString(idStoreFlag)
 		if id != "" {
 			i, _ := strconv.Atoi(id)
-			beer, err := service.FetchByID(i)
+			beer, err := service.FetchStoreByID(i)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -43,10 +43,10 @@ func runStoresFn(service fetching.Service) CobraFn {
 			return
 		}
 
-		beers, err := service.FetchBeers()
+		stores, err := service.FetchStores()
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(beers)
+		fmt.Println(stores)
 	}
 }
