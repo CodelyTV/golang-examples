@@ -9,17 +9,52 @@ import (
 type Service interface {
 	// FetchBeers fetch all beers from repository
 	FetchBeers() ([]beerscli.Beer, error)
-	// FetchByID filter all beers and get only the beer that match with given id
+	// FetchByID filter all beers and get only the beer that matches with given id
 	FetchByID(id int) (beerscli.Beer, error)
+}
+
+type StoresService interface {
+	// FetchStores fetch all stores from repository
+	FetchStores() ([]beerscli.Store, error)
+	// FetchStoreById filter all stores and get only the store that matches with given id
+	FetchStoreByID(id int) (beerscli.Store, error)
 }
 
 type service struct {
 	bR beerscli.BeerRepo
 }
 
+type storeService struct {
+	sR beerscli.StoreRepo
+}
+
 // NewService creates an adding service with the necessary dependencies
 func NewService(r beerscli.BeerRepo) Service {
 	return &service{r}
+}
+
+// NewStoreService creates an adding store service with the necessary dependencies
+func NewStoreService(r beerscli.StoreRepo) StoresService {
+	return &storeService{r}
+}
+
+func (s *storeService) FetchStores() ([]beerscli.Store, error) {
+	return s.sR.GetStores()
+}
+
+func (s *storeService) FetchStoreByID(id int) (beerscli.Store, error) {
+	stores, err := s.FetchStores()
+	if err != nil {
+		return beerscli.Store{}, err
+	}
+
+	for _, store := range stores {
+		if store.StoreID == id {
+			return store, nil
+		}
+	}
+
+	return beerscli.Store{}, errors.Errorf("Store %d not found", id)
 }
 
 func (s *service) FetchBeers() ([]beerscli.Beer, error) {
