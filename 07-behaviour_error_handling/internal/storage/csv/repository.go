@@ -7,6 +7,11 @@ import (
 	"strings"
 
 	beerscli "github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal"
+	"github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal/errors"
+)
+
+const(
+	beersFile = "07-behaviour_error_handling/data/beers.csv"
 )
 
 type repository struct {
@@ -19,7 +24,10 @@ func NewRepository() beerscli.BeerRepo {
 
 // GetBeers fetch beers data from csv
 func (r *repository) GetBeers() ([]beerscli.Beer, error) {
-	f, _ := os.Open("07-behaviour_error_handling/data/beers.csv")
+	f, err := os.Open(beersFile)
+	if err != nil {
+		return nil, errors.WrapFileReadError(err, "error getting the file %s", beersFile)
+	}
 	reader := bufio.NewReader(f)
 
 	var beers []beerscli.Beer
@@ -27,7 +35,10 @@ func (r *repository) GetBeers() ([]beerscli.Beer, error) {
 	for line := readLine(reader); line != nil; line = readLine(reader) {
 		values := strings.Split(string(line), ",")
 
-		productID, _ := strconv.Atoi(values[0])
+		productID, err := strconv.Atoi(values[0])
+		if err != nil {
+			return nil, errors.WrapFileReadError(err, "error getting reading the file %s", beersFile)
+		}
 
 		beer := beerscli.NewBeer(
 			productID,

@@ -26,3 +26,21 @@ func IsDataUnreacheable(err error) bool {
 	_, ok := err.(*dataUnreacheable)
 	return ok
 }
+
+type fileReadError struct {
+	error
+}
+
+// WrapFileReadError returns an error which wraps err that satisfies
+// IsFileReadError
+func WrapFileReadError(err error, format string, args ...interface{}) error {
+	return &fileReadError{errors.Wrapf(err, format, args ...)}
+}
+
+// IsFileReadError reports whether err was created with FileReadErrorf() or
+// NewIsFileReadError()
+func IsFileReadError(err error) bool {
+	err = errors.Cause(err)
+	_, ok := err.(*fileReadError)
+	return ok
+}
