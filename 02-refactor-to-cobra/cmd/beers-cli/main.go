@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/CodelyTV/golang-introduction/02-refactor-to-cobra/internal/cli"
-	"github.com/spf13/cobra"
+"github.com/CodelyTV/golang-introduction/02-refactor-to-cobra/internal/cli"
+"github.com/spf13/cobra"
 )
 
 func main() {
 	rootCmd := &cobra.Command{Use: "beers-cli"}
 	rootCmd.AddCommand(cli.InitBeersCmd())
+	rootCmd.AddCommand(cli.InitStoresCmd())
 	rootCmd.Execute()
 }
