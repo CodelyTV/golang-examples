@@ -4,7 +4,7 @@ import (
 	"math"
 	"sync"
 
-	beerscli "github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal"
+	beerscli "github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal"
 )
 
 // Service provides beer fetching operations

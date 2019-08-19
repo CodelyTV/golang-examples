@@ -1,6 +1,6 @@
 goos: darwin
 goarch: amd64
-pkg: github.com/CodelyTV/golang-introduction/10-profiling/internal/storage/ontario
+pkg: github.com/CodelyTV/golang-examples/10-profiling/internal/storage/ontario
 BenchmarkGetBeers-8   	     200	   8124287 ns/op
 PASS
-ok  	github.com/CodelyTV/golang-introduction/10-profiling/internal/storage/ontario	2.476s
+ok  	github.com/CodelyTV/golang-examples/10-profiling/internal/storage/ontario	2.476s

@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	beerscli "github.com/CodelyTV/golang-introduction/10-profiling/internal"
+	beerscli "github.com/CodelyTV/golang-examples/10-profiling/internal"
 )
 
 type repository struct {

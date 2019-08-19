@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	beerscli "github.com/CodelyTV/golang-introduction/06-error_handling/internal"
+	beerscli "github.com/CodelyTV/golang-examples/06-error_handling/internal"
 	"github.com/pkg/errors"
 )
 

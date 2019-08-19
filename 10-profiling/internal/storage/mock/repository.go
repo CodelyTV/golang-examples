@@ -6,7 +6,7 @@ package mock
 import (
 	"sync"
 
-	beerscli "github.com/CodelyTV/golang-introduction/10-profiling/internal"
+	beerscli "github.com/CodelyTV/golang-examples/10-profiling/internal"
 )
 
 var (
