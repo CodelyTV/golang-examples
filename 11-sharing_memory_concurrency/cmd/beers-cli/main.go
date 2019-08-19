@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 
-	beerscli "github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal"
-	"github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal/cli"
-	"github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal/fetching"
-	"github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal/storage/csv"
-	"github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal/storage/ontario"
+	beerscli "github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal"
+	"github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal/cli"
+	"github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal/fetching"
+	"github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal/storage/csv"
+	"github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal/storage/ontario"
 	"github.com/spf13/cobra"
 )
 

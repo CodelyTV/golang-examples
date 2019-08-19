@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	beerscli "github.com/CodelyTV/golang-introduction/05-parsing_http_response/internal"
+	beerscli "github.com/CodelyTV/golang-examples/05-parsing_http_response/internal"
 	"github.com/spf13/cobra"
 )
 

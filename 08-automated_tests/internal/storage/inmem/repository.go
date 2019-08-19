@@ -1,7 +1,7 @@
 package inmem
 
 import (
-	beerscli "github.com/CodelyTV/golang-introduction/08-automated_tests/internal"
+	beerscli "github.com/CodelyTV/golang-examples/08-automated_tests/internal"
 )
 
 type repository struct {

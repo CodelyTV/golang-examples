@@ -5,9 +5,9 @@ import (
 	"log"
 	"strconv"
 
-	"github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal/errors"
+	"github.com/CodelyTV/golang-examples/07-behaviour_error_handling/internal/errors"
 
-	beerscli "github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal"
+	beerscli "github.com/CodelyTV/golang-examples/07-behaviour_error_handling/internal"
 	"github.com/spf13/cobra"
 )
 

@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	beerscli "github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal"
-	"github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal/errors"
+	beerscli "github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal"
+	"github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal/errors"
 )
 
 const (

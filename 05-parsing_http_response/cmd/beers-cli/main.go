@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 
-	"github.com/CodelyTV/golang-introduction/05-parsing_http_response/internal/storage/ontario"
+	"github.com/CodelyTV/golang-examples/05-parsing_http_response/internal/storage/ontario"
 
-	beerscli "github.com/CodelyTV/golang-introduction/05-parsing_http_response/internal"
-	"github.com/CodelyTV/golang-introduction/05-parsing_http_response/internal/cli"
-	"github.com/CodelyTV/golang-introduction/05-parsing_http_response/internal/storage/csv"
+	beerscli "github.com/CodelyTV/golang-examples/05-parsing_http_response/internal"
+	"github.com/CodelyTV/golang-examples/05-parsing_http_response/internal/cli"
+	"github.com/CodelyTV/golang-examples/05-parsing_http_response/internal/storage/csv"
 	"github.com/spf13/cobra"
 )
 

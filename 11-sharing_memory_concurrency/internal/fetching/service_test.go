@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	beerscli "github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal"
-	"github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal/storage/mock"
+	beerscli "github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal"
+	"github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal/storage/mock"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -1,6 +1,6 @@
 goos: darwin
 goarch: amd64
-pkg: github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal/storage/ontario
+pkg: github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal/storage/ontario
 BenchmarkGetBeers-8   	      50	  25692443 ns/op
 PASS
-ok  	github.com/CodelyTV/golang-introduction/11-sharing_memory_concurrency/internal/storage/ontario	1.333s
+ok  	github.com/CodelyTV/golang-examples/11-sharing_memory_concurrency/internal/storage/ontario	1.333s

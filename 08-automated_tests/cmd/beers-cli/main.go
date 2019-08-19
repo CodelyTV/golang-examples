@@ -3,13 +3,13 @@ package main
 import (
 	"flag"
 
-	"github.com/CodelyTV/golang-introduction/08-automated_tests/internal/fetching"
+	"github.com/CodelyTV/golang-examples/08-automated_tests/internal/fetching"
 
-	"github.com/CodelyTV/golang-introduction/08-automated_tests/internal/storage/ontario"
+	"github.com/CodelyTV/golang-examples/08-automated_tests/internal/storage/ontario"
 
-	beerscli "github.com/CodelyTV/golang-introduction/08-automated_tests/internal"
-	"github.com/CodelyTV/golang-introduction/08-automated_tests/internal/cli"
-	"github.com/CodelyTV/golang-introduction/08-automated_tests/internal/storage/csv"
+	beerscli "github.com/CodelyTV/golang-examples/08-automated_tests/internal"
+	"github.com/CodelyTV/golang-examples/08-automated_tests/internal/cli"
+	"github.com/CodelyTV/golang-examples/08-automated_tests/internal/storage/csv"
 	"github.com/spf13/cobra"
 )
 

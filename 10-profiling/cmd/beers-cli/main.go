@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 
-	beerscli "github.com/CodelyTV/golang-introduction/10-profiling/internal"
-	"github.com/CodelyTV/golang-introduction/10-profiling/internal/cli"
-	"github.com/CodelyTV/golang-introduction/10-profiling/internal/fetching"
-	"github.com/CodelyTV/golang-introduction/10-profiling/internal/storage/csv"
-	"github.com/CodelyTV/golang-introduction/10-profiling/internal/storage/ontario"
+	beerscli "github.com/CodelyTV/golang-examples/10-profiling/internal"
+	"github.com/CodelyTV/golang-examples/10-profiling/internal/cli"
+	"github.com/CodelyTV/golang-examples/10-profiling/internal/fetching"
+	"github.com/CodelyTV/golang-examples/10-profiling/internal/storage/csv"
+	"github.com/CodelyTV/golang-examples/10-profiling/internal/storage/ontario"
 	"github.com/spf13/cobra"
 )
 

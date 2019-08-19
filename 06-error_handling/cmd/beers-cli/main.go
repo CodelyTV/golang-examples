@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 
-	"github.com/CodelyTV/golang-introduction/06-error_handling/internal/storage/ontario"
+	"github.com/CodelyTV/golang-examples/06-error_handling/internal/storage/ontario"
 
-	beerscli "github.com/CodelyTV/golang-introduction/06-error_handling/internal"
-	"github.com/CodelyTV/golang-introduction/06-error_handling/internal/cli"
-	"github.com/CodelyTV/golang-introduction/06-error_handling/internal/storage/csv"
+	beerscli "github.com/CodelyTV/golang-examples/06-error_handling/internal"
+	"github.com/CodelyTV/golang-examples/06-error_handling/internal/cli"
+	"github.com/CodelyTV/golang-examples/06-error_handling/internal/storage/csv"
 	"github.com/spf13/cobra"
 )
 

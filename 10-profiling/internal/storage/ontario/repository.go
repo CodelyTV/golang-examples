@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	beerscli "github.com/CodelyTV/golang-introduction/10-profiling/internal"
-	"github.com/CodelyTV/golang-introduction/10-profiling/internal/errors"
+	beerscli "github.com/CodelyTV/golang-examples/10-profiling/internal"
+	"github.com/CodelyTV/golang-examples/10-profiling/internal/errors"
 )
 
 const (

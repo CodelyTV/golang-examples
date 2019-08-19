@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	beerscli "github.com/CodelyTV/golang-introduction/07-behaviour_error_handling/internal"
+	beerscli "github.com/CodelyTV/golang-examples/07-behaviour_error_handling/internal"
 )
 
 type repository struct {

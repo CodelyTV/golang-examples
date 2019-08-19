@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
-	beerscli "github.com/CodelyTV/golang-introduction/08-automated_tests/internal"
-	"github.com/CodelyTV/golang-introduction/08-automated_tests/internal/storage/mock"
+	beerscli "github.com/CodelyTV/golang-examples/08-automated_tests/internal"
+	"github.com/CodelyTV/golang-examples/08-automated_tests/internal/storage/mock"
 
 	"github.com/stretchr/testify/assert"
 )
