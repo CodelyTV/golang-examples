@@ -20,7 +20,7 @@ func InitStoresCmd() *cobra.Command {
 		Run:   runStoresFn(),
 	}
 
-	storesCmd.Flags().StringP(idFlag, "i", "", "id of the beer")
+	storesCmd.Flags().StringP(idFlag, "i", "", "id of the store")
 
 	return storesCmd
 }
