@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	beerscli "github.com/CodelyTV/golang-examples/07-behaviour_error_handling/internal"
+	"github.com/golang-examples/07-behaviour_error_handling/internal/errors"
 )
 
 type repository struct {
@@ -19,7 +20,12 @@ func NewRepository() beerscli.BeerRepo {
 
 // GetBeers fetch beers data from csv
 func (r *repository) GetBeers() ([]beerscli.Beer, error) {
-	f, _ := os.Open("07-behaviour_error_handling/data/beers.csv")
+	f, err := os.Open("07-behaviour_error_handling/data/beers.csv")
+
+	if err != nil {
+		return nil, errors.WrapDataUnreacheable(err, "error opening csv file")
+	}
+
 	reader := bufio.NewReader(f)
 
 	var beers []beerscli.Beer
@@ -46,6 +52,11 @@ func (r *repository) GetBeers() ([]beerscli.Beer, error) {
 }
 
 func readLine(reader *bufio.Reader) (line []byte) {
-	line, _, _ = reader.ReadLine()
+	line, _, err = reader.ReadLine()
+
+	if err != nil {
+		return nil, errors.WrapDataUnreacheable(err,"error reading the response from %s", reader))
+	}
+
 	return
 }
