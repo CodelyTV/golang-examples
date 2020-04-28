@@ -1,4 +1,3 @@
-
 module github.com/CodelyTV/golang-examples
 
 go 1.12

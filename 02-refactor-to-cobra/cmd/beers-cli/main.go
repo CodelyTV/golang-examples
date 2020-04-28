@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Codely/golang-examples/02-refactor-to-cobra/internal/cli"
+	"github.com/CodelyTV/golang-examples/02-refactor-to-cobra/internal/cli"
 	"github.com/spf13/cobra"
 )
 
