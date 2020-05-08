@@ -42,6 +42,43 @@ func TestFetchByID(t *testing.T) {
 	}
 }
 
+func TestStoreService_FetchStoreById(t *testing.T) {
+	testsCases := map[string]struct {
+		repo beerscli.StoreRepo
+		input int
+		want string
+		err error
+	}{
+		"valid store": {repo: buildMockStores(), input: 127, want: "Mercadona", err: nil},
+		"not found beer": {repo: buildMockStores(), input: 128, err: errors.New("error")},
+	}
+
+	for name, testCase := range testsCases{
+		t.Run(name, func(t *testing.T) {
+			service := NewStoreService(testCase.repo)
+			store, err := service.FetchStoreById(testCase.input)
+
+			if testCase.err != nil {
+				assert.Error(t, err)
+			}
+
+			assert.Equal(t, testCase.want, store.Name)
+		})
+	}
+}
+
+func buildMockStores() beerscli.StoreRepo {
+	mockedRepo := &mock.StoreRepoMock{
+		GetStoresFunc: func() ([]beerscli.Store, error) {
+			return []beerscli.Store{
+				beerscli.NewStore(127, "Mercadona"),
+				beerscli.NewStore(8520130, "Carrefour"),
+			}, nil
+		},
+	}
+	return mockedRepo
+}
+
 func buildMockBeers() beerscli.BeerRepo {
 	mockedRepo := &mock.BeerRepoMock{
 		GetBeersFunc: func() ([]beerscli.Beer, error) {

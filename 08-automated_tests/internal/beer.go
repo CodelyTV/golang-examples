@@ -4,6 +4,12 @@ import (
 	"encoding/json"
 )
 
+//Store representation
+type Store struct {
+	ProductId int
+	Name string
+}
+
 // Beer representation of beer into data struct
 type Beer struct {
 	ProductID int       `json:"product_id"`
@@ -76,6 +82,10 @@ func (t *BeerType) UnmarshalJSON(b []byte) error {
 type BeerRepo interface {
 	GetBeers() ([]Beer, error)
 }
+//StoreRepo definition of methods to access a data store
+type StoreRepo interface {
+	GetStores() ([]Store, error)
+}
 
 // NewBeer initialize struct beer
 func NewBeer(productID int, name, category, brewer, country, price string, beerType *BeerType) (b Beer) {
@@ -89,4 +99,12 @@ func NewBeer(productID int, name, category, brewer, country, price string, beerT
 		Price:     price,
 	}
 	return
+}
+
+func NewStore(productId int, name string) (s Store){
+	s = Store{
+		ProductId: productId,
+		Name: name,
+	}
+	return s
 }
