@@ -5,7 +5,7 @@
 
 Project showing up how you could implement a entire command line application with **GO**.
 
-With this project your will be capable of implement an application with **Go**. For this project you don't need previous experience on the language, but you do need an minimal background as developer.
+With this project you will be capable of implementing an application with **Go**. For this project you don't need previous experience on the language, but you do need a minimal background as a developer.
 
 We will explain all the features that go with it including the famous `goroutines`.
 
