@@ -8,5 +8,5 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v0.0.7
-	github.com/stretchr/testify v1.3.0
+	github.com/stretchr/testify v1.7.0
 )
