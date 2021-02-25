@@ -1,13 +1,9 @@
-package cli
+package beers
 
 import (
 	"fmt"
-
 	"github.com/spf13/cobra"
 )
-
-// CobraFn function definion of run cobra command
-type CobraFn func(cmd *cobra.Command, args []string)
 
 var beers = map[string]string{
 	"01D9X58E7NPXX5MVCR9QN794CH": "Mad Jack Mixer",
@@ -16,6 +12,9 @@ var beers = map[string]string{
 }
 
 const idFlag = "id"
+
+// CobraFn function definion of run cobra command
+type CobraFn func(cmd *cobra.Command, args []string)
 
 // InitBeersCmd initialize beers command
 func InitBeersCmd() *cobra.Command {
