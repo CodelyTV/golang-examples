@@ -2,6 +2,7 @@ package csv
 
 import (
 	"bufio"
+	"github.com/CodelyTV/golang-examples/07-behaviour_error_handling/internal/errors"
 	"os"
 	"strconv"
 	"strings"
@@ -19,16 +20,25 @@ func NewRepository() beerscli.BeerRepo {
 
 // GetBeers fetch beers data from csv
 func (r *repository) GetBeers() ([]beerscli.Beer, error) {
-	f, _ := os.Open("07-behaviour_error_handling/data/beers.csv")
+	const filePath = "07-behaviour_error_handling/data/beers.csv"
+	f, err := os.Open(filePath)
+	if err != nil {
+		return nil, errors.WrapProcessFileError(err, "error read file %s", filePath)
+	}
 	reader := bufio.NewReader(f)
 
 	var beers []beerscli.Beer
 
-	for line := readLine(reader); line != nil; line = readLine(reader) {
+	for line, _ := readLine(reader); line != nil; line, err = readLine(reader) {
+		if err != nil {
+			return nil, err
+		}
 		values := strings.Split(string(line), ",")
 
-		productID, _ := strconv.Atoi(values[0])
-
+		productID, err := strconv.Atoi(values[0])
+		if err != nil {
+			return nil, errors.WrapProcessFileError(err, "can't parsing %s into productID", values[0])
+		}
 		beer := beerscli.NewBeer(
 			productID,
 			values[1],
@@ -45,7 +55,11 @@ func (r *repository) GetBeers() ([]beerscli.Beer, error) {
 	return beers, nil
 }
 
-func readLine(reader *bufio.Reader) (line []byte) {
-	line, _, _ = reader.ReadLine()
+func readLine(reader *bufio.Reader) (line []byte, err error) {
+	line, _, err = reader.ReadLine()
+
+	if err != nil {
+		return nil, errors.WrapProcessFileError(err, "can't parsing data into beers")
+	}
 	return
 }

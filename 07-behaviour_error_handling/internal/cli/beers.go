@@ -35,7 +35,9 @@ func runBeersFn(repository beerscli.BeerRepo) CobraFn {
 		if errors.IsDataUnreacheable(err) {
 			log.Fatal(err)
 		}
-
+		if errors.IsProcessFileError(err) {
+			log.Fatal(err)
+		}
 		id, _ := cmd.Flags().GetString(idFlag)
 
 		if id != "" {
