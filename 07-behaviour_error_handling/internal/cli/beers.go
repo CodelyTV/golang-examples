@@ -33,6 +33,12 @@ func runBeersFn(repository beerscli.BeerRepo) CobraFn {
 	return func(cmd *cobra.Command, args []string) {
 		beers, err := repository.GetBeers()
 		if errors.IsDataUnreacheable(err) {
+			log.Printf("https://github.com/caleeli/golang-examples.git/issues/new?assignees=&labels=&template=dataunreachable.md&title=")
+		}
+		if errors.IsLoadCSVError(err) {
+			log.Printf("https://github.com/caleeli/golang-examples.git/issues/new?assignees=&labels=&template=loadcsv.md&title=")
+		}
+		if err != nil {
 			log.Fatal(err)
 		}
 
