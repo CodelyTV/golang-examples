@@ -12,12 +12,12 @@ import (
 type storeRepo struct {
 }
 
-// NewRepository initialize csv repository
+// NewCSVStoreRepo initialize csv repository
 func NewCSVStoreRepo() beerscli.StoreRepo {
 	return &storeRepo{}
 }
 
-// GetBeers fetch beers data from csv
+// GetStores fetch stores data from csv
 func (r *storeRepo) GetStores() ([]beerscli.Store, error) {
 	f, _ := os.Open("08-automated_tests/data/stores.csv")
 	reader := bufio.NewReader(f)

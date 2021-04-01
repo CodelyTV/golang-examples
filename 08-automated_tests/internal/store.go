@@ -7,12 +7,12 @@ type Store struct {
 	Country string `json:"country"`
 }
 
-// StoreRepo definiton of methods to access a data beer
+// StoreRepo definiton of methods to access stores data
 type StoreRepo interface {
 	GetStores() ([]Store, error)
 }
 
-// NewStore initialize struct beer
+// NewStore initialize struct Store
 func NewStore(storeID int, name, country string) (b Store) {
 	b = Store{
 		StoreID: storeID,

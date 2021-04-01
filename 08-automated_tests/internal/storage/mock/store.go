@@ -14,9 +14,3 @@ func (m *MockStoreRepo) GetStores() ([]beerscli.Store, error) {
 	res := args.Get(0)
 	return res.([]beerscli.Store), args.Error(1)
 }
-
-//func (m *MockStoreRepo) FetchStoreByID(ID int) (beerscli.Store, error) {
-//	args := m.Called(ID)
-//	res := args.Get(0)
-//	return res.(beerscli.Store), args.Error(1)
-//}

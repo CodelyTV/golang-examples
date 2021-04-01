@@ -10,7 +10,6 @@ type Service interface {
 	FetchBeers() ([]beerscli.Beer, error)
 	// FetchByID filter all beers and get only the beer that match with given id
 	FetchByID(id int) (beerscli.Beer, error)
-	// FetchBeers fetch all beers from repository
 
 	// FetchStores fetch all stores from repository
 	FetchStores() ([]beerscli.Store, error)
