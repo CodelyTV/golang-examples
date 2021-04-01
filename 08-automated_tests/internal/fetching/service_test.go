@@ -13,19 +13,20 @@ import (
 func TestFetchByID(t *testing.T) {
 
 	tests := map[string]struct {
-		repo  beerscli.BeerRepo
-		input int
-		want  int
-		err   error
+		beerRepo  beerscli.BeerRepo
+		storeRepo beerscli.StoreRepo
+		input     int
+		want      int
+		err       error
 	}{
-		"valid beer":            {repo: buildMockBeers(), input: 127, want: 127, err: nil},
-		"not found beer":        {repo: buildMockBeers(), input: 99999, err: errors.New("error")},
-		"error with repository": {repo: buildMockError(), err: errors.New("error")},
+		"valid beer":            {beerRepo: buildMockBeers(), input: 127, want: 127, err: nil},
+		"not found beer":        {beerRepo: buildMockBeers(), input: 99999, err: errors.New("error")},
+		"error with repository": {beerRepo: buildMockError(), err: errors.New("error")},
 	}
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
-			service := NewService(tc.repo)
+			service := NewService(tc.beerRepo, tc.storeRepo)
 
 			b, err := service.FetchByID(tc.input)
 
@@ -79,4 +80,60 @@ func buildMockError() beerscli.BeerRepo {
 	}
 
 	return mockedRepo
+}
+
+func TestGetStores(t *testing.T) {
+	storeRepo := new(mock.MockStoreRepo)
+	stores := []beerscli.Store{
+		{
+			StoreID: 1,
+			Name:    "Paceña",
+			Country: "BOB",
+		},
+	}
+	storeRepo.On("GetStores").Return(stores, nil)
+
+	service := NewService(nil, storeRepo)
+
+	stores, err := service.FetchStores()
+
+	assert.Nil(t, err)
+
+	assert.Equal(t, 1, stores[0].StoreID)
+	assert.Equal(t, "Paceña", stores[0].Name)
+	assert.Equal(t, "BOB", stores[0].Country)
+}
+
+func TestFetchStoreByID(t *testing.T) {
+	tests := map[string]struct {
+		input int
+		want  int
+		err   error
+	}{
+		"valid beer":     {input: 127, want: 127, err: nil},
+		"not found beer": {input: 99999, err: errors.New("error")},
+		//"error with repository": {err: errors.New("error")},
+	}
+
+	for name, tc := range tests {
+		t.Run(name, func(t *testing.T) {
+			storeRepo := new(mock.MockStoreRepo)
+			stores := []beerscli.Store{
+				{
+					StoreID: 1,
+					Name:    "Paceña",
+					Country: "BOB",
+				},
+			}
+			storeRepo.On("GetStores").Return(stores, nil)
+
+			service := NewService(nil, storeRepo)
+
+			stores, err := service.FetchStores()
+
+			assert.Equal(t, tc.err, err)
+			assert.Equal(t, "Paceña", stores[0].Name)
+
+		})
+	}
 }
