@@ -13,9 +13,9 @@ type StoreRepo interface {
 }
 
 // NewStore initialize struct beer
-func NewStore(productID int, name, category, brewer, country, price string) (b Store) {
+func NewStore(storeID int, name, country string) (b Store) {
 	b = Store{
-		StoreID: productID,
+		StoreID: storeID,
 		Name:    name,
 		Country: country,
 	}

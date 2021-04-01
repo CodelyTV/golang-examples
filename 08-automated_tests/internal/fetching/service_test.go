@@ -2,6 +2,7 @@ package fetching
 
 import (
 	"errors"
+	"fmt"
 	"testing"
 
 	beerscli "github.com/CodelyTV/golang-examples/08-automated_tests/internal"
@@ -86,7 +87,7 @@ func TestGetStores(t *testing.T) {
 	storeRepo := new(mock.MockStoreRepo)
 	stores := []beerscli.Store{
 		{
-			StoreID: 1,
+			StoreID: 100,
 			Name:    "Paceña",
 			Country: "BOB",
 		},
@@ -99,40 +100,45 @@ func TestGetStores(t *testing.T) {
 
 	assert.Nil(t, err)
 
-	assert.Equal(t, 1, stores[0].StoreID)
+	assert.Equal(t, 100, stores[0].StoreID)
 	assert.Equal(t, "Paceña", stores[0].Name)
 	assert.Equal(t, "BOB", stores[0].Country)
 }
 
 func TestFetchStoreByID(t *testing.T) {
+	stores := []beerscli.Store{
+		{
+			StoreID: 100,
+			Name:    "Paceña",
+			Country: "BOB",
+		},
+	}
 	tests := map[string]struct {
-		input int
-		want  int
-		err   error
+		inputID      int
+		expectedName string
+		stores       []beerscli.Store
+		err          error
 	}{
-		"valid beer":     {input: 127, want: 127, err: nil},
-		"not found beer": {input: 99999, err: errors.New("error")},
-		//"error with repository": {err: errors.New("error")},
+		"valid store":           {inputID: 100, expectedName: "Paceña", stores: stores, err: nil},
+		"not found store":       {inputID: 99999, stores: stores, err: errors.New("error")},
+		"error with repository": {stores: nil, err: errors.New("error")},
 	}
 
 	for name, tc := range tests {
 		t.Run(name, func(t *testing.T) {
+			fmt.Println(tc.inputID)
 			storeRepo := new(mock.MockStoreRepo)
-			stores := []beerscli.Store{
-				{
-					StoreID: 1,
-					Name:    "Paceña",
-					Country: "BOB",
-				},
-			}
-			storeRepo.On("GetStores").Return(stores, nil)
+			storeRepo.On("GetStores").Return(tc.stores, tc.err)
 
 			service := NewService(nil, storeRepo)
 
-			stores, err := service.FetchStores()
+			store, err := service.FetchStoreByID(tc.inputID)
 
 			assert.Equal(t, tc.err, err)
-			assert.Equal(t, "Paceña", stores[0].Name)
+
+			if tc.err == nil {
+				assert.Equal(t, tc.expectedName, store.Name)
+			}
 
 		})
 	}
