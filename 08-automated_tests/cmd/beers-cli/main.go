@@ -24,7 +24,8 @@ func main() {
 		repo = ontario.NewOntarioRepository()
 	}
 
-	fetchingService := fetching.NewService(repo)
+	storeRepo := csv.NewCSVStoreRepo()
+	fetchingService := fetching.NewService(repo, storeRepo)
 
 	rootCmd := &cobra.Command{Use: "beers-cli"}
 	rootCmd.AddCommand(cli.InitBeersCmd(fetchingService))
