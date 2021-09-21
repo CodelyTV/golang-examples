@@ -17,22 +17,36 @@ type CobraFn func(cmd *cobra.Command, args []string)
 const idFlag = "id"
 
 // InitBeersCmd initialize beers command
-func InitBeersCmd(repository beerscli.BeerRepo) *cobra.Command {
+func InitBeersCmd(repoAPI beerscli.BeerRepo, repoCSV beerscli.BeerRepo) *cobra.Command {
 	beersCmd := &cobra.Command{
 		Use:   "beers",
 		Short: "Print data about beers",
-		Run:   runBeersFn(repository),
+		Run:   runBeersFn(repoAPI, repoCSV),
 	}
 
 	beersCmd.Flags().StringP(idFlag, "i", "", "id of the beer")
+	beersCmd.Flags().Bool("csv", false, "load data from csv")
 
 	return beersCmd
 }
 
-func runBeersFn(repository beerscli.BeerRepo) CobraFn {
+func runBeersFn(repoAPI beerscli.BeerRepo, repoCSV beerscli.BeerRepo) CobraFn {
 	return func(cmd *cobra.Command, args []string) {
+		var repository beerscli.BeerRepo
+		useCSV, _ := cmd.Flags().GetBool("csv")
+		if useCSV {
+			repository = repoAPI
+		} else {
+			repository = repoCSV
+		}
 		beers, err := repository.GetBeers()
 		if errors.IsDataUnreacheable(err) {
+			log.Printf("https://github.com/caleeli/golang-examples.git/issues/new?assignees=&labels=&template=dataunreachable.md&title=")
+		}
+		if errors.IsLoadCSVError(err) {
+			log.Printf("https://github.com/caleeli/golang-examples.git/issues/new?assignees=&labels=&template=loadcsv.md&title=")
+		}
+		if err != nil {
 			log.Fatal(err)
 		}
 
