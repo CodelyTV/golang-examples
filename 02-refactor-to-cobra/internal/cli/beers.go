@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// CobraFn function definion of run cobra command
+// CobraFn function definition of run cobra command
 type CobraFn func(cmd *cobra.Command, args []string)
 
 var beers = map[string]string{
