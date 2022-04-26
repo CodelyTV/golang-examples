@@ -6,7 +6,7 @@ type Beer struct {
 	Name      string
 	Price     float64
 	Category  string
-	Type      *BeerType
+	Type      BeerType
 	Brewer    string
 	Country   string
 }
@@ -29,9 +29,9 @@ func (t BeerType) String() string {
 }
 
 // NewBeerType initialize a type from enum beerTypes
-func NewBeerType(t string) *BeerType {
+func NewBeerType(t string) BeerType {
 	beerType := toID[t]
-	return &beerType
+	return beerType
 }
 
 var toString = map[BeerType]string{
@@ -62,7 +62,7 @@ type BeerRepo interface {
 }
 
 // NewBeer initialize struct beer
-func NewBeer(productID int, name, category, brewer, country string, beerType *BeerType, price float64) (b Beer) {
+func NewBeer(productID int, name, category, brewer, country string, beerType BeerType, price float64) (b Beer) {
 	b = Beer{
 		ProductID: productID,
 		Name:      name,
