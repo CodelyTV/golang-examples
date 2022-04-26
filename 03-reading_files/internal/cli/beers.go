@@ -3,6 +3,7 @@ package cli
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -31,8 +32,11 @@ func InitBeersCmd() *cobra.Command {
 func runBeersFn() CobraFn {
 	return func(cmd *cobra.Command, args []string) {
 
-		f, _ := os.Open("03-reading_files/data/beers.csv")
-		reader := bufio.NewReader(f)
+		file, error := os.Open("data/beers.csv")
+		if error != nil {
+			log.Fatal(error)
+		}
+		reader := bufio.NewReader(file)
 
 		var beers = make(map[int]string)
 
