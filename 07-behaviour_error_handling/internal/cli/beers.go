@@ -36,10 +36,20 @@ func runBeersFn(repository beerscli.BeerRepo) CobraFn {
 			log.Fatal(err)
 		}
 
+		if errors.IsFileHandlingError(err) {
+			log.Fatal(err)
+		}
+
 		id, _ := cmd.Flags().GetString(idFlag)
 
 		if id != "" {
-			i, _ := strconv.Atoi(id)
+			var i int
+			i, err = strconv.Atoi(id)
+
+			if errors.IsConversionError(err) {
+				log.Fatal(err)
+			}
+
 			for _, beer := range beers {
 				if beer.ProductID == i {
 					fmt.Println(beer)
