@@ -37,7 +37,7 @@ func runBeersFn(repository beerscli.BeerRepo) CobraFn {
 			for _, beer := range beers {
 				if beer.ProductID == i {
 					fmt.Println(beer)
-					return
+					// return
 				}
 			}
 		} else {
