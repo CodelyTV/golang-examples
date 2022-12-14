@@ -6,9 +6,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// CobraFn function definion of run cobra command
-type CobraFn func(cmd *cobra.Command, args []string)
-
 var beers = map[string]string{
 	"01D9X58E7NPXX5MVCR9QN794CH": "Mad Jack Mixer",
 	"01D9X5BQ5X48XMMVZ2F2G3R5MS": "Keystone Ice",
