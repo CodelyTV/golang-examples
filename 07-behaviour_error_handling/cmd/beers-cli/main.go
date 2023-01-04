@@ -13,7 +13,7 @@ import (
 
 func main() {
 
-	csvData := flag.Bool("csv", false, "load data from csv")
+	csvData := flag.Bool("csv", true, "load data from csv")
 	flag.Parse()
 	var repo beerscli.BeerRepo
 	repo = csv.NewRepository()
