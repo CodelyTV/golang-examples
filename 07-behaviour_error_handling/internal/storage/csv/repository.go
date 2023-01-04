@@ -2,7 +2,6 @@ package csv
 
 import (
 	"bufio"
-	"github.com/CodelyTV/golang-examples/07-behaviour_error_handling/internal/errors"
 	"os"
 	"strconv"
 	"strings"
@@ -20,12 +19,7 @@ func NewRepository() beerscli.BeerRepo {
 
 // GetBeers fetch beers data from csv
 func (r *repository) GetBeers() ([]beerscli.Beer, error) {
-	f, err := os.Open("07-behaviour_error_handling/data/beers2.csv")
-
-	if err != nil {
-		return nil, errors.WrapFileDataUError(err, "error getting beers to %s", "csv data")
-	}
-
+	f, _ := os.Open("07-behaviour_error_handling/data/beers.csv")
 	reader := bufio.NewReader(f)
 
 	var beers []beerscli.Beer
@@ -33,11 +27,7 @@ func (r *repository) GetBeers() ([]beerscli.Beer, error) {
 	for line := readLine(reader); line != nil; line = readLine(reader) {
 		values := strings.Split(string(line), ",")
 
-		productID, err := strconv.Atoi(values[0])
-
-		if err != nil {
-			return nil, errors.WrapFormatDataError(err, "can't format product Id with Atoi method")
-		}
+		productID, _ := strconv.Atoi(values[0])
 
 		beer := beerscli.NewBeer(
 			productID,
@@ -57,6 +47,5 @@ func (r *repository) GetBeers() ([]beerscli.Beer, error) {
 
 func readLine(reader *bufio.Reader) (line []byte) {
 	line, _, _ = reader.ReadLine()
-
 	return
 }

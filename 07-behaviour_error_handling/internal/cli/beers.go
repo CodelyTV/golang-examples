@@ -32,10 +32,7 @@ func InitBeersCmd(repository beerscli.BeerRepo) *cobra.Command {
 func runBeersFn(repository beerscli.BeerRepo) CobraFn {
 	return func(cmd *cobra.Command, args []string) {
 		beers, err := repository.GetBeers()
-		if errors.IsFileErrorType(err) {
-			log.Fatal(err)
-		}
-		if errors.IsFormatDataError(err) {
+		if errors.IsDataUnreacheable(err) {
 			log.Fatal(err)
 		}
 
